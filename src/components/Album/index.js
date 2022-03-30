@@ -28,7 +28,7 @@ console.log(data.album);
         <img src={data.album.images[0].url} alt={data.title}/>
       </div>
       <div id="album-detail card-content">
-        <h1 id="album-title">{data.album.name}</h1>
+        <h2 id="album-title">{data.album.name}</h2>
         <div id="artist-info">
           <p>
             Artist : <span id="artist-name">{data.artists[0].name}</span>

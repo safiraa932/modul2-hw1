@@ -8,10 +8,10 @@ const Home = () => {
       <section className="suggested-section">
         <div className="layout">
           <div className="suggested-list">
-            {/* <Album data = { data }/> */}
-            {data.map((item) => (
+            <Album data = { data }/>
+            {/* {data.map((item) => (
               <Album key={item.id} data={item} />
-            ))}
+            ))} */}
           </div>
         </div>
       </section>
