@@ -1,75 +1,80 @@
 // import { render } from "@testing-library/react";
-import { Component } from "react";
+import { Component, useState, useEffect } from "react";
 import Album from "../Album";
 
-const access_token =
-  "BQAYo_mFHjzxFciqDF0OJSDVlmPO0aSdz_12m7Cgv5KFO_vwnBE9O9uA-IfJA8Rot1-dlH-Cf7szt-TV7cpCM9-OmHVXn0NGcoD5HggDBJK3677VXNxBHTNh4o40Q1987HZedmsbn_HQ43HGARlrHujuzzb1mP8BPE2P8UV9qOkLiaG02EZzygVjTJWZk470dqxdyuJycQGoxryh";
+const SearchBar = () => {
+  // state = {
+  //   accessToken: window.location.hash
+  //     .substring(1, window.location.hash.length - 1)
+  //     .split("&")[0]
+  //     .split("=")[1],
+  //   search: "",
+  //   data: [],
+  // };
+  const [accessToken, setAccessToken] = useState("");
+  const [search, setSearch] = useState("");
+  const [data, setData] = useState([]);
+  const [selected, setSelected] = useState([]);
 
-class SearchBar extends Component {
-  state = {
-    accessToken: window.location.hash
-    .substring(1, window.location.hash.length - 1)
-    .split("&")[0]
-    .split("=")[1],
-    search: "",
-    data: [],
-  };
+  useEffect(() => {
+    const hash = window.location.hash
+      .substring(1, window.location.hash.length - 1)
+      .split("&")[0]
+      .split("=")[1];
+    setAccessToken(hash);
+  }, []);
 
-  getSpotify = () => {
+  const getSpotify = () => {
     fetch(
       "https://api.spotify.com/v1/search?q=" +
-        this.state.search +
-        "&type=track&limit=10&access_token=" +
-        this.state.accessToken
+        search +
+        "&type=track&limit=30&access_token=" +
+        accessToken
     )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        this.setState({
-          data: data.tracks.items,
-        });
+        setData(data.tracks.items);
       });
   };
 
-  handleChange = (event) => {
-    this.setState({
-      search: event.target.value,
-    });
+  const handleChange = (event) => {
+    setSearch(event.target.value);
   };
-  handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    this.getSpotify();
+    getSpotify();
   };
 
-  render() {
-    return (
-      <div className='box'>
-        <form nameName='search'>
+  return (
+    <div className="box">
+      <div className="container">
+        <form className="search" onSubmit={(e)=>{
+        e.preventDefault()
+        }}>
           <input
             type="text"
-            className='input'
+            className="input"
             name="txt"
-            value={this.state.search}
-            onChange={this.handleChange}
+            placeholder="masukkan lagu yang ingin anda cari"
+            value={search}
+            onChange={handleChange}
           ></input>
-          <button
-            className='button'
-            type="submit"
-            onClick={this.handleSubmit}
-          >
+          <button className="button" type="button" onClick={handleSubmit}>
             Search
           </button>
         </form>
-        <div className='card'>
-          {this.state.data.map((song, index) => (
-            <div className='cardContent'>
-              <Album key={song.id} data={song} />
-            </div>
-          ))}
-        </div>
       </div>
-    );
-  }
-}
+      
+      <div className="card" >
+        {data.map((song) => (
+          <div key={song.id} className="cardContent">
+            <Album data={song} selected={selected} setSelected={setSelected} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default SearchBar;
