@@ -1,6 +1,7 @@
 // import { render } from "@testing-library/react";
 import { Component, useState, useEffect } from "react";
 import Album from "../Album";
+import CreatePlaylist from "../createPlaylist";
 
 const SearchBar = () => {
   // state = {
@@ -28,7 +29,7 @@ const SearchBar = () => {
     fetch(
       "https://api.spotify.com/v1/search?q=" +
         search +
-        "&type=track&limit=30&access_token=" +
+        "&type=track&limit=10&access_token=" +
         accessToken
     )
       .then((res) => res.json())
@@ -73,6 +74,8 @@ const SearchBar = () => {
           </div>
         ))}
       </div>
+
+      <CreatePlaylist accessToken={accessToken} selected={selected}/>
     </div>
   );
 };

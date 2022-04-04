@@ -3,6 +3,7 @@ import Home from "./pages/home/index";
 import Login from "./components/login/index";
 import Search from "./components/search/index";
 import { Component } from "react";
+import CreatePlaylist from "./components/createPlaylist/index";
 
 class App extends Component {
   state = {
@@ -14,7 +15,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.accessToken?<Search />:<Login />}
+        {this.state.accessToken?<><Search accessToken={this.state.accessToken}/></>:<Login />}
       </div>
     );
   }
