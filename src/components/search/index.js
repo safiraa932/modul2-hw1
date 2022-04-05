@@ -2,7 +2,7 @@
 import { Component, useState, useEffect } from "react";
 import Album from "../Album";
 import CreatePlaylist from "../createPlaylist";
-
+import { useSelector } from "react-redux";
 const SearchBar = () => {
   // state = {
   //   accessToken: window.location.hash
@@ -12,18 +12,12 @@ const SearchBar = () => {
   //   search: "",
   //   data: [],
   // };
-  const [accessToken, setAccessToken] = useState("");
+
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
   const [selected, setSelected] = useState([]);
 
-  useEffect(() => {
-    const hash = window.location.hash
-      .substring(1, window.location.hash.length - 1)
-      .split("&")[0]
-      .split("=")[1];
-    setAccessToken(hash);
-  }, []);
+  const accessToken = useSelector((state) => state.token.token);
 
   const getSpotify = () => {
     fetch(
@@ -50,9 +44,12 @@ const SearchBar = () => {
   return (
     <div className="box">
       <div className="container">
-        <form className="search" onSubmit={(e)=>{
-        e.preventDefault()
-        }}>
+        <form
+          className="search"
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
           <input
             type="text"
             className="input"
@@ -66,8 +63,8 @@ const SearchBar = () => {
           </button>
         </form>
       </div>
-      
-      <div className="card" >
+
+      <div className="card">
         {data.map((song) => (
           <div key={song.id} className="cardContent">
             <Album data={song} selected={selected} setSelected={setSelected} />
@@ -75,7 +72,7 @@ const SearchBar = () => {
         ))}
       </div>
 
-      <CreatePlaylist accessToken={accessToken} selected={selected}/>
+      <CreatePlaylist accessToken={accessToken} selected={selected} />
     </div>
   );
 };

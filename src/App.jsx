@@ -1,24 +1,24 @@
 import "./App.css";
-import Home from "./pages/home/index";
 import Login from "./components/login/index";
 import Search from "./components/search/index";
 import { Component } from "react";
-import CreatePlaylist from "./components/createPlaylist/index";
+import {useSelector} from 'react-redux';
 
-class App extends Component {
-  state = {
-    accessToken: window.location.hash
-    .substring(1, window.location.hash.length - 1)
-    .split("&")[0]
-    .split("=")[1],
-  }
-  render() {
+const App = ()=> {
+  // state = {
+  //   accessToken: window.location.hash
+  //   .substring(1, window.location.hash.length - 1)
+  //   .split("&")[0]
+  //   .split("=")[1],
+  // }
+
+    const accessToken = useSelector(state=> state.token.token)
+
     return (
       <div className="App">
-        {this.state.accessToken?<><Search accessToken={this.state.accessToken}/></>:<Login />}
+        {accessToken?<><Search/></>:<Login />}
       </div>
     );
-  }
 }
 
 export default App;

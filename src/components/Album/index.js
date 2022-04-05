@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 const Album = ({ data, selected, setSelected }) => {
   // useEffect(() => {
   //   try {

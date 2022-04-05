@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
-const CreatePlaylist = ({ accessToken, selected }) => {
+const CreatePlaylist = ({ selected }) => {
   const [playlist, setPlaylist] = useState({
     namePlaylist: "",
     descriptionPlaylist: "",
   });
   const [hasError, setErrors] = useState(false);
   const [playlistData, setPlaylistData] = useState([]);
-  const [playlist_id, setPlaylist_id]= useState("");
+  const [playlist_id, setPlaylist_id] = useState("");
+
+  const accessToken = useSelector((state) => state.token.token);
 
   const getPlaylist = () => {
     axios
@@ -27,15 +30,15 @@ const CreatePlaylist = ({ accessToken, selected }) => {
       });
   };
   const addSong = () => {
-      console.log(selected)
+    console.log(selected);
     let allTracks = "";
     selected.forEach((it) => {
       allTracks += it + ",";
     });
     axios
-    // `playlists/${playlist.id}/tracks?access_token=${accessToken}&uris=${allTracks}`
+      // `playlists/${playlist.id}/tracks?access_token=${accessToken}&uris=${allTracks}`
       .post(
-        `https://api.spotify.com/v1/playlists/${playlist_id}/tracks?access_token=${accessToken}&uris=${allTracks}`,
+        `https://api.spotify.com/v1/playlists/${playlist_id}/tracks?access_token=${accessToken}&uris=${allTracks}`
       )
       .then((res) => {
         console.log(res.data);
@@ -44,11 +47,11 @@ const CreatePlaylist = ({ accessToken, selected }) => {
         console.log(err.message);
       });
   };
+
   const postData = () => {
     axios
       .post(
         "https://api.spotify.com/v1/users/fn8964dqui1zdjck785valjnk/playlists",
-
         {
           name: playlist.namePlaylist,
           description: playlist.descriptionPlaylist,
@@ -69,9 +72,14 @@ const CreatePlaylist = ({ accessToken, selected }) => {
       });
   };
 
-  useEffect(() => {
-    console.log("selected ", selected);
-  }, [selected]);
+  // useEffect(() => {
+  //   console.log("selected ", selected);
+  // }, [selected]);
+
+  // useEffect(()=>{
+  //   console.log("panggil")
+  //  getPlaylist()
+  // },[])
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -119,25 +127,28 @@ const CreatePlaylist = ({ accessToken, selected }) => {
     <>
       <div className="container">
         <div className="card-playlist">
-          <div className="title">
-          </div>
+          <div className="title"></div>
           <Button variant="primary" onClick={addSong}>
             Add to playlist
           </Button>
+          <Button variant="primary" onClick={getPlaylist}>
+            Playlist Data
+          </Button>
         </div>
-        {playlistData.map(
-          (item, index) =>
-              <div className="playlist-data">
-                <div key={index}>
-                  <h5>{item.name}</h5>
-                  <p>{item.description}</p>
-                  <p>{item.tracks.total}</p>
-                  <Button variant="primary" onClick={addSong}>
-                    Add song
-                  </Button>
-                </div>
+        {playlistData.map((item, index) => (
+          <div key={index}>
+            <div className="playlist-data">
+              <div>
+                <h5>{item.name}</h5>
+                <p>{item.description}</p>
+                <p>{item.tracks.total}</p>
+                <Button variant="primary" onClick={addSong}>
+                  Add song
+                </Button>
               </div>
-        )}
+            </div>
+          </div>
+        ))}
 
         <div className="playlist">
           <div className="title">
@@ -179,4 +190,5 @@ const CreatePlaylist = ({ accessToken, selected }) => {
     </>
   );
 };
+
 export default CreatePlaylist;

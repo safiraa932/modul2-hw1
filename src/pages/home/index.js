@@ -8,7 +8,7 @@ const Home = () => {
       <section className="suggested-section">
         <div className="layout">
           <div className="suggested-list">
-            <Album data = { data }/>
+            <Album data={data} />
             {/* {data.map((item) => (
               <Album key={item.id} data={item} />
             ))} */}
