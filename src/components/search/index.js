@@ -1,21 +1,15 @@
 // import { render } from "@testing-library/react";
-import { Component, useState, useEffect } from "react";
+import { Component, useState, useEffect, useDebugValue } from "react";
 import Album from "../Album";
 import CreatePlaylist from "../createPlaylist";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { removeAccessToken } from "../../redux/slices/tokenSlice";
 const SearchBar = () => {
-  // state = {
-  //   accessToken: window.location.hash
-  //     .substring(1, window.location.hash.length - 1)
-  //     .split("&")[0]
-  //     .split("=")[1],
-  //   search: "",
-  //   data: [],
-  // };
 
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
   const [selected, setSelected] = useState([]);
+  const dispatch = useDispatch();
 
   const accessToken = useSelector((state) => state.token.token);
 
@@ -62,6 +56,7 @@ const SearchBar = () => {
             Search
           </button>
         </form>
+        <button className="button" type="button" onClick={ () => dispatch(removeAccessToken())}>Logout</button>
       </div>
 
       <div className="card">

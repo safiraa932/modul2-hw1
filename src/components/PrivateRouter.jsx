@@ -1,0 +1,26 @@
+import { Component } from "react";
+import { useSelector } from "react-redux";
+import { Redirect, Route, Switch } from "react-router-dom";
+
+const PrivateRouter = ({ component: Component, ...rest }) => {
+    const token = useSelector((state) => state.token.token);
+
+    return(
+        <Route
+            {...rest}
+            render={(props) => 
+                token ? (
+                    <Component {...props} />
+                ) : (
+                    <Redirect 
+                        to={{
+                            pathname: "/",
+                        }}
+                    />
+                )
+            }
+        />
+    );
+};
+
+export default PrivateRouter;

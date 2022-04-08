@@ -150,19 +150,19 @@ const CreatePlaylist = ({ selected }) => {
           </div>
         ))}
 
-        <div className="playlist">
+        
+      </div>
+      <div className="playlist">
           <div className="title">
             <h1>Create playlist</h1>
           </div>
           <div className="form">
-            <form onSubmit={handleFormSubmit}>
-              <div className="playlistName">
-                <label>Name</label>
+            <form id="submit-playlist" onSubmit={handleFormSubmit}>
+              <div className="input-group">
+                <label>Name:</label>
                 <input
-                  required
-                  name="namePlaylist"
+                  required name="namePlaylist"
                   type="text"
-                  placeholder="Name playlist"
                   value={playlist.namePlaylist}
                   onChange={handleFormChange}
                 />
@@ -170,23 +170,26 @@ const CreatePlaylist = ({ selected }) => {
                   <p className="error">{hasError.namePlaylist}</p>
                 )}
               </div>
-              <div className="playlistDescription">
-                <label>Description</label>
+              <div className="input-group">
+                <label>Description:</label>
                 <input
+                  rows="4"
                   name="descriptionPlaylist"
                   type="text"
-                  placeholder="Description"
                   value={playlist.descriptionPlaylist}
                   onChange={handleFormChange}
                 />
               </div>
-              <Button variant="primary" type="submit">
+              <button
+                className="btn btn-secondary"
+                variant="primary"
+                type="submit"
+              >
                 Submit
-              </Button>{" "}
+              </button>
             </form>
           </div>
         </div>
-      </div>
     </>
   );
 };
