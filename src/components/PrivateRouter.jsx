@@ -1,26 +1,25 @@
-import { Component } from "react";
-import { useSelector } from "react-redux";
-import { Redirect, Route, Switch } from "react-router-dom";
+import React, { Component } from 'react';
 
-const PrivateRouter = ({ component: Component, ...rest }) => {
-    const token = useSelector((state) => state.token.token);
+import { useSelector } from 'react-redux';
+import { Redirect, Route } from 'react-router-dom';
 
-    return(
-        <Route
-            {...rest}
-            render={(props) => 
-                token ? (
-                    <Component {...props} />
-                ) : (
-                    <Redirect 
-                        to={{
-                            pathname: "/",
-                        }}
-                    />
-                )
-            }
+function PrivateRouter({ ...rest }) {
+  const token = useSelector((state) => state.token.token);
+
+  return (
+    <Route
+      {...rest}
+      render={(props) => (token ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: '/',
+          }}
         />
-    );
-};
+      ))}
+    />
+  );
+}
 
 export default PrivateRouter;

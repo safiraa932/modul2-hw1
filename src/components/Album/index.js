@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-const Album = ({ data, selected, setSelected }) => {
+import React from 'react';
+
+function Album({ data, selected, setSelected }) {
   // useEffect(() => {
   //   try {
   //     console.log(data);
@@ -43,15 +44,15 @@ const Album = ({ data, selected, setSelected }) => {
             <td>
               {selected.includes(data.uri) ? (
                 <button
+                  type="button"
                   className="btn bg-secondary"
-                  onClick={() =>
-                    setSelected(selected.filter((uri) => uri !== data.uri))
-                  }
+                  onClick={() => setSelected(selected.filter((uri) => uri !== data.uri))}
                 >
                   Deselect
                 </button>
               ) : (
                 <button
+                  type="button"
                   className="btn bg-secondary"
                   onClick={() => setSelected([...selected, data.uri])}
                 >
@@ -64,6 +65,6 @@ const Album = ({ data, selected, setSelected }) => {
       </table>
     </div>
   );
-};
+}
 
 export default Album;

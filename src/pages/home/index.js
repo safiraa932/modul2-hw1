@@ -1,21 +1,19 @@
-import React from "react";
-import Album from "../../components/Album/index";
-import data from "../../data";
+import React from 'react';
+import Album from '../../components/Album/index';
+import data from '../../data';
 
-const Home = () => {
+function Home() {
   return (
-    <>
-      <section className="suggested-section">
-        <div className="layout">
-          <div className="suggested-list">
-            <Album data={data} />
-            {/* {data.map((item) => (
+    <section className="suggested-section">
+      <div className="layout">
+        <div className="suggested-list">
+          <Album data={data} />
+          {/* {data.map((item) => (
               <Album key={item.id} data={item} />
             ))} */}
-          </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
-};
+}
 export default Home;

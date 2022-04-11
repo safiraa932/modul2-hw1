@@ -1,12 +1,12 @@
 // import { render } from "@testing-library/react";
-import { Component, useState, useEffect, useDebugValue } from "react";
-import Album from "../Album";
-import CreatePlaylist from "../createPlaylist";
-import { useDispatch, useSelector } from "react-redux";
-import { removeAccessToken } from "../../redux/slices/tokenSlice";
-const SearchBar = () => {
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Album from '../Album';
+import CreatePlaylist from '../createPlaylist';
+import { removeAccessToken } from '../../redux/slices/tokenSlice';
 
-  const [search, setSearch] = useState("");
+function SearchBar() {
+  const [search, setSearch] = useState('');
   const [data, setData] = useState([]);
   const [selected, setSelected] = useState([]);
   const dispatch = useDispatch();
@@ -15,15 +15,15 @@ const SearchBar = () => {
 
   const getSpotify = () => {
     fetch(
-      "https://api.spotify.com/v1/search?q=" +
-        search +
-        "&type=track&limit=10&access_token=" +
-        accessToken
+      `https://api.spotify.com/v1/search?q=${
+        search
+      }&type=track&limit=10&access_token=${
+        accessToken}`,
     )
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setData(data.tracks.items);
+      .then((item) => {
+        console.log(item);
+        setData(item.tracks.items);
       });
   };
 
@@ -51,12 +51,12 @@ const SearchBar = () => {
             placeholder="masukkan lagu yang ingin anda cari"
             value={search}
             onChange={handleChange}
-          ></input>
+          />
           <button className="button" type="button" onClick={handleSubmit}>
             Search
           </button>
         </form>
-        <button className="button" type="button" onClick={ () => dispatch(removeAccessToken())}>Logout</button>
+        <button className="button" type="button" onClick={() => dispatch(removeAccessToken())}>Logout</button>
       </div>
 
       <div className="card">
@@ -70,6 +70,6 @@ const SearchBar = () => {
       <CreatePlaylist accessToken={accessToken} selected={selected} />
     </div>
   );
-};
+}
 
 export default SearchBar;

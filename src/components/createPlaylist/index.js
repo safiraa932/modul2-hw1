@@ -1,22 +1,24 @@
-import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
-import axios from "axios";
-import { useSelector } from "react-redux";
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React, { useState } from 'react';
 
-const CreatePlaylist = ({ selected }) => {
+import { Button } from 'react-bootstrap';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+
+function CreatePlaylist({ selected }) {
   const [playlist, setPlaylist] = useState({
-    namePlaylist: "",
-    descriptionPlaylist: "",
+    namePlaylist: '',
+    descriptionPlaylist: '',
   });
   const [hasError, setErrors] = useState(false);
   const [playlistData, setPlaylistData] = useState([]);
-  const [playlist_id, setPlaylist_id] = useState("");
+  const [playlistId, setplaylistId] = useState('');
 
   const accessToken = useSelector((state) => state.token.token);
 
   const getPlaylist = () => {
     axios
-      .get(`https://api.spotify.com/v1/me/playlists`, {
+      .get('https://api.spotify.com/v1/me/playlists', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -31,14 +33,14 @@ const CreatePlaylist = ({ selected }) => {
   };
   const addSong = () => {
     console.log(selected);
-    let allTracks = "";
+    let allTracks = '';
     selected.forEach((it) => {
-      allTracks += it + ",";
+      allTracks += `${it},`;
     });
     axios
       // `playlists/${playlist.id}/tracks?access_token=${accessToken}&uris=${allTracks}`
       .post(
-        `https://api.spotify.com/v1/playlists/${playlist_id}/tracks?access_token=${accessToken}&uris=${allTracks}`
+        `https://api.spotify.com/v1/playlists/${playlistId}/tracks?access_token=${accessToken}&uris=${allTracks}`,
       )
       .then((res) => {
         console.log(res.data);
@@ -51,7 +53,7 @@ const CreatePlaylist = ({ selected }) => {
   const postData = () => {
     axios
       .post(
-        "https://api.spotify.com/v1/users/fn8964dqui1zdjck785valjnk/playlists",
+        'https://api.spotify.com/v1/users/fn8964dqui1zdjck785valjnk/playlists',
         {
           name: playlist.namePlaylist,
           description: playlist.descriptionPlaylist,
@@ -61,11 +63,11 @@ const CreatePlaylist = ({ selected }) => {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }
+        },
       )
       .then((res) => {
         console.log(res.data);
-        setPlaylist_id(res.data.id);
+        setplaylistId(res.data.id);
       })
       .catch((err) => {
         console.log(err.message);
@@ -88,18 +90,18 @@ const CreatePlaylist = ({ selected }) => {
     if (errors.namePlaylist.length <= 10) {
       setErrors({
         ...errors,
-        namePlaylist: "Minimum 10 characters",
+        namePlaylist: 'Minimum 10 characters',
       });
     } else {
       setErrors({
         ...errors,
-        namePlaylist: "",
+        namePlaylist: '',
       });
     }
     postData();
     setPlaylist({
-      namePlaylist: "",
-      descriptionPlaylist: "",
+      namePlaylist: '',
+      descriptionPlaylist: '',
     });
   };
 
@@ -113,12 +115,12 @@ const CreatePlaylist = ({ selected }) => {
     if (errors.namePlaylist.length <= 10) {
       setErrors({
         ...errors,
-        namePlaylist: "Minimum 10 characters",
+        namePlaylist: 'Minimum 10 characters',
       });
     } else {
       setErrors({
         ...errors,
-        namePlaylist: "",
+        namePlaylist: '',
       });
     }
   };
@@ -127,7 +129,7 @@ const CreatePlaylist = ({ selected }) => {
     <>
       <div className="container">
         <div className="card-playlist">
-          <div className="title"></div>
+          <div className="title" />
           <Button variant="primary" onClick={addSong}>
             Add to playlist
           </Button>
@@ -135,8 +137,8 @@ const CreatePlaylist = ({ selected }) => {
             Playlist Data
           </Button>
         </div>
-        {playlistData.map((item, index) => (
-          <div key={index}>
+        {playlistData.map((item) => (
+          <div key={item.id}>
             <div className="playlist-data">
               <div>
                 <h5>{item.name}</h5>
@@ -150,48 +152,50 @@ const CreatePlaylist = ({ selected }) => {
           </div>
         ))}
 
-        
       </div>
       <div className="playlist">
-          <div className="title">
-            <h1>Create playlist</h1>
-          </div>
-          <div className="form">
-            <form id="submit-playlist" onSubmit={handleFormSubmit}>
-              <div className="input-group">
-                <label>Name:</label>
-                <input
-                  required name="namePlaylist"
-                  type="text"
-                  value={playlist.namePlaylist}
-                  onChange={handleFormChange}
-                />
-                {hasError.namePlaylist && (
-                  <p className="error">{hasError.namePlaylist}</p>
-                )}
-              </div>
-              <div className="input-group">
-                <label>Description:</label>
-                <input
-                  rows="4"
-                  name="descriptionPlaylist"
-                  type="text"
-                  value={playlist.descriptionPlaylist}
-                  onChange={handleFormChange}
-                />
-              </div>
-              <button
-                className="btn btn-secondary"
-                variant="primary"
-                type="submit"
-              >
-                Submit
-              </button>
-            </form>
-          </div>
+        <div className="title">
+          <h1>Create playlist</h1>
         </div>
+        <div className="form">
+          <form id="submit-playlist" onSubmit={handleFormSubmit}>
+            <div className="input-group">
+              <label id="namePlaylist">Name:</label>
+              <input
+                id="namePlaylist"
+                required
+                name="namePlaylist"
+                type="text"
+                value={playlist.namePlaylist}
+                onChange={handleFormChange}
+              />
+              {hasError.namePlaylist && (
+              <p className="error">{hasError.namePlaylist}</p>
+              )}
+            </div>
+            <div className="input-group">
+              <label id="descPlaylist">Description:</label>
+              <input
+                id="descPlaylist"
+                rows="4"
+                name="descriptionPlaylist"
+                type="text"
+                value={playlist.descriptionPlaylist}
+                onChange={handleFormChange}
+              />
+            </div>
+            <button
+              className="btn btn-secondary"
+              variant="primary"
+              type="submit"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
     </>
   );
-};
+}
 
 export default CreatePlaylist;
