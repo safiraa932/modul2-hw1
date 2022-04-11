@@ -1,26 +1,6 @@
 import React from 'react';
 
 function Album({ data, selected, setSelected }) {
-  // useEffect(() => {
-  //   try {
-  //     console.log(data);
-
-  //     const imgAlbum = document.getElementById("img-album");
-  //     const albumTitle = document.getElementById("album-title");
-  //     const artistName = document.getElementById("artist-name");
-  //     const releaseDate = document.getElementById("release-date");
-  //     const totalTracks = document.getElementById("total-tracks");
-
-  //     imgAlbum.src = data.album.images[1].url;
-  //     albumTitle.innerText = data.album.name;
-  //     artistName.innerText = data.artists[0].name;
-  //     releaseDate.innerText = data.album.release_date;
-  //     totalTracks.innerText = data.album.total_tracks;
-  //   } catch (err) {
-  //     alert(err.message);
-  //   }
-  // }, []);
-
   return (
     <div className="card-suggested">
       <table>

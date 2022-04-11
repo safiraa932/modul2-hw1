@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
-
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -38,7 +37,6 @@ function CreatePlaylist({ selected }) {
       allTracks += `${it},`;
     });
     axios
-      // `playlists/${playlist.id}/tracks?access_token=${accessToken}&uris=${allTracks}`
       .post(
         `https://api.spotify.com/v1/playlists/${playlistId}/tracks?access_token=${accessToken}&uris=${allTracks}`,
       )
@@ -73,15 +71,6 @@ function CreatePlaylist({ selected }) {
         console.log(err.message);
       });
   };
-
-  // useEffect(() => {
-  //   console.log("selected ", selected);
-  // }, [selected]);
-
-  // useEffect(()=>{
-  //   console.log("panggil")
-  //  getPlaylist()
-  // },[])
 
   const handleFormSubmit = (event) => {
     event.preventDefault();

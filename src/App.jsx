@@ -6,8 +6,6 @@ import Search from './components/search/index';
 import PrivateRouter from './components/PrivateRouter';
 
 function App() {
-  // const accessToken = useSelector(state=> state.token.token)
-
   return (
     <div className="App">
       <Router>
@@ -18,7 +16,6 @@ function App() {
           <PrivateRouter path="/create-playlist" component={Search} />
         </Switch>
       </Router>
-      {/* {accessToken?<><Search/></>:<Login />} */}
     </div>
   );
 }
