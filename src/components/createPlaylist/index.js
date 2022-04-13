@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import Style from './playlist.module.css';
 
 function CreatePlaylist({ selected }) {
   const [playlist, setPlaylist] = useState({
@@ -117,8 +118,8 @@ function CreatePlaylist({ selected }) {
   return (
     <>
       <div className="container">
+
         <div className="card-playlist">
-          <div className="title" />
           <Button variant="primary" onClick={addSong}>
             Add to playlist
           </Button>
@@ -128,15 +129,13 @@ function CreatePlaylist({ selected }) {
         </div>
         {playlistData.map((item) => (
           <div key={item.id}>
-            <div className="playlist-data">
-              <div>
-                <h5>{item.name}</h5>
-                <p>{item.description}</p>
-                <p>{item.tracks.total}</p>
-                <Button variant="primary" onClick={addSong}>
-                  Add song
-                </Button>
-              </div>
+            <div className={Style.playlistData}>
+              <h5>{item.name}</h5>
+              <p>{item.description}</p>
+              <p>{item.tracks.total}</p>
+              <Button variant="primary" onClick={addSong}>
+                Add song
+              </Button>
             </div>
           </div>
         ))}

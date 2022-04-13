@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Login from './components/login/index';
+import Login from './pages/Login/index';
 import Search from './components/search/index';
 import PrivateRouter from './components/PrivateRouter';
 

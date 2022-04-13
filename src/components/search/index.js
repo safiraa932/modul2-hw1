@@ -1,4 +1,5 @@
 // import { render } from "@testing-library/react";
+// import { Button } from 'react-bootstrap';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Album from '../Album';
@@ -66,8 +67,14 @@ function SearchBar() {
           </div>
         ))}
       </div>
-
+      <div className="card-playlist">
+        <div className="title" />
+        {/* <Button variant="primary">
+          Add to playlist
+        </Button> */}
+      </div>
       <CreatePlaylist accessToken={accessToken} selected={selected} />
+
     </div>
   );
 }
