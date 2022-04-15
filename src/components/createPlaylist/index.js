@@ -118,7 +118,6 @@ function CreatePlaylist({ selected }) {
   return (
     <>
       <div className="container">
-
         <div className="card-playlist">
           <Button variant="primary" onClick={addSong}>
             Add to playlist
@@ -127,18 +126,18 @@ function CreatePlaylist({ selected }) {
             Playlist Data
           </Button>
         </div>
-        {playlistData.map((item) => (
-          <div key={item.id}>
-            <div className={Style.playlistData}>
+        <div className={Style.playlistData}>
+          {playlistData.map((item) => (
+            <div key={item.id} className={Style.playlistItem}>
               <h5>{item.name}</h5>
               <p>{item.description}</p>
               <p>{item.tracks.total}</p>
-              <Button variant="primary" onClick={addSong}>
+              <Button variant="primary" className={Style.btnData} onClick={addSong}>
                 Add song
               </Button>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
 
       </div>
       <div className="playlist">

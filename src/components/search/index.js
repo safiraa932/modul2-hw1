@@ -1,16 +1,13 @@
 // import { render } from "@testing-library/react";
-// import { Button } from 'react-bootstrap';
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Album from '../Album';
 import CreatePlaylist from '../createPlaylist';
-import { removeAccessToken } from '../../redux/slices/tokenSlice';
 
 function SearchBar() {
   const [search, setSearch] = useState('');
   const [data, setData] = useState([]);
   const [selected, setSelected] = useState([]);
-  const dispatch = useDispatch();
 
   const accessToken = useSelector((state) => state.token.token);
 
@@ -57,10 +54,9 @@ function SearchBar() {
             Search
           </button>
         </form>
-        <button className="button" type="button" onClick={() => dispatch(removeAccessToken())}>Logout</button>
       </div>
 
-      <div className="card">
+      <div className="card-container">
         {data.map((song) => (
           <div key={song.id} className="cardContent">
             <Album data={song} selected={selected} setSelected={setSelected} />

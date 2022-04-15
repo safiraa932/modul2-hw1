@@ -10,11 +10,7 @@ function Album({ data, selected, setSelected }) {
         </div>
         <div className={Style.albumDetail}>
           <h2 className={Style.albumTitle}>{data.name}</h2>
-          <div className={Style.artistInfo}>
-            <p>
-              <span className={Style.artistName}>{data.artists[0].name}</span>
-            </p>
-          </div>
+          <p className={Style.artistName}>{data.artists[0].name}</p>
         </div>
         {selected.includes(data.uri) ? (
           <button
