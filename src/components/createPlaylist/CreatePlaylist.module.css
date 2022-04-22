@@ -1,0 +1,42 @@
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputGroup label {
+    margin-top: 18px;
+}
+
+.inputGroup input {
+    margin-top: 10px;
+    padding: 17px 10px;
+    border-radius: 5px;
+    font-size: 12pt;
+    font-family: sans-serif;
+    border: 1px solid #b7cadb;
+}
+
+.btnAddSong {
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    padding: 12px 20px;
+    align-self: end;
+    background-color: #488fb1;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.btnSubmit {
+    width: 10%;
+    border: none;
+    cursor: pointer;
+    padding: 12px 20px;
+    margin: 10px 0;
+    align-self: end;
+    background-color: #488fb1;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+}

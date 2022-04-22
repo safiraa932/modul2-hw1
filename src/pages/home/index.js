@@ -1,16 +1,14 @@
 import React from 'react';
-import Album from '../../components/Album/index';
-import data from '../../data';
+import Search from '../../components/search';
+import Playlist from '../../components/Playlist';
 
 function Home() {
   return (
-    <section className="suggested-section">
-      <div className="layout">
-        <div className="suggested-list">
-          <Album data={data} />
-        </div>
-      </div>
-    </section>
+    <>
+      <Search />
+      <Playlist />
+    </>
+
   );
 }
 export default Home;

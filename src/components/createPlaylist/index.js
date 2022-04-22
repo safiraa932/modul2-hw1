@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import Style from './playlist.module.css';
+import Container from '@mui/material/Container';
+import Style from './CreatePlaylist.module.css';
 
 function CreatePlaylist({ selected }) {
   const [playlist, setPlaylist] = useState({
@@ -11,26 +11,10 @@ function CreatePlaylist({ selected }) {
     descriptionPlaylist: '',
   });
   const [hasError, setErrors] = useState(false);
-  const [playlistData, setPlaylistData] = useState([]);
   const [playlistId, setplaylistId] = useState('');
 
   const accessToken = useSelector((state) => state.token.token);
 
-  const getPlaylist = () => {
-    axios
-      .get('https://api.spotify.com/v1/me/playlists', {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-        setPlaylistData(res.data.items);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  };
   const addSong = () => {
     console.log(selected);
     let allTracks = '';
@@ -114,73 +98,58 @@ function CreatePlaylist({ selected }) {
       });
     }
   };
-
+  console.log(selected);
   return (
     <>
-      <div className="container">
-        <div className="card-playlist">
-          <Button variant="primary" onClick={addSong}>
-            Add to playlist
-          </Button>
-          <Button variant="primary" onClick={getPlaylist}>
-            Playlist Data
-          </Button>
+      <div className="card-playlist">
+        <button type="button" className={Style.btnAddSong} onClick={addSong}>
+          Add to playlist
+        </button>
+      </div>
+      <Container>
+        <div className="playlist">
+          <div className="title">
+            <h1>Create playlist</h1>
+          </div>
+          <div className="form">
+            <form id="submit-playlist" onSubmit={handleFormSubmit}>
+              <div className={Style.inputGroup}>
+                <label id="namePlaylist">Name:</label>
+                <input
+                  id="namePlaylist"
+                  required
+                  name="namePlaylist"
+                  type="text"
+                  value={playlist.namePlaylist}
+                  onChange={handleFormChange}
+                />
+                {hasError.namePlaylist && (
+                <p className="error">{hasError.namePlaylist}</p>
+                )}
+              </div>
+              <div className={Style.inputGroup}>
+                <label id="descPlaylist">Description:</label>
+                <input
+                  id="descPlaylist"
+                  rows="4"
+                  name="descriptionPlaylist"
+                  type="text"
+                  value={playlist.descriptionPlaylist}
+                  onChange={handleFormChange}
+                />
+              </div>
+              <button
+                className={Style.btnSubmit}
+                variant="primary"
+                type="submit"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
         </div>
-        <div className={Style.playlistData}>
-          {playlistData.map((item) => (
-            <div key={item.id} className={Style.playlistItem}>
-              <h5>{item.name}</h5>
-              <p>{item.description}</p>
-              <p>{item.tracks.total}</p>
-              <Button variant="primary" className={Style.btnData} onClick={addSong}>
-                Add song
-              </Button>
-            </div>
-          ))}
-        </div>
+      </Container>
 
-      </div>
-      <div className="playlist">
-        <div className="title">
-          <h1>Create playlist</h1>
-        </div>
-        <div className="form">
-          <form id="submit-playlist" onSubmit={handleFormSubmit}>
-            <div className="input-group">
-              <label id="namePlaylist">Name:</label>
-              <input
-                id="namePlaylist"
-                required
-                name="namePlaylist"
-                type="text"
-                value={playlist.namePlaylist}
-                onChange={handleFormChange}
-              />
-              {hasError.namePlaylist && (
-              <p className="error">{hasError.namePlaylist}</p>
-              )}
-            </div>
-            <div className="input-group">
-              <label id="descPlaylist">Description:</label>
-              <input
-                id="descPlaylist"
-                rows="4"
-                name="descriptionPlaylist"
-                type="text"
-                value={playlist.descriptionPlaylist}
-                onChange={handleFormChange}
-              />
-            </div>
-            <button
-              className="btn btn-secondary"
-              variant="primary"
-              type="submit"
-            >
-              Submit
-            </button>
-          </form>
-        </div>
-      </div>
     </>
   );
 }

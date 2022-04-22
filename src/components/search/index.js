@@ -55,7 +55,6 @@ function SearchBar() {
           </button>
         </form>
       </div>
-
       <div className="card-container">
         {data.map((song) => (
           <div key={song.id} className="cardContent">
@@ -63,14 +62,7 @@ function SearchBar() {
           </div>
         ))}
       </div>
-      <div className="card-playlist">
-        <div className="title" />
-        {/* <Button variant="primary">
-          Add to playlist
-        </Button> */}
-      </div>
       <CreatePlaylist accessToken={accessToken} selected={selected} />
-
     </div>
   );
 }
